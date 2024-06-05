@@ -20,8 +20,7 @@
     </div>
 @endsection
 @push('js')
-    @vite('resources/js/jquery-3.7.1.min.js')
-    <script>
+    <script type="module">
         $(document).ready(function () {
             let table = $('#data-table').DataTable({
                 dom: 'BRSlrtip',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CustomerTypeEnum;
+use App\Http\Requests\Product\StoreRequest;
 use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -42,12 +43,12 @@ class ProductController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $path = Storage::disk('public')->putFile('images', $request->file('image'));
+        $path = $request->file('image')->store('images');
         $arr = $request->validated();
         $arr['image'] = $path;
         $product = Product::query()->create($arr);
         if ($product) {
-            return redirect()->route('admin.products.index')->with(['success' => 'Thêm mới thành công']);
+            return redirect()->route('products.index')->with(['success' => 'Thêm mới thành công']);
         }
         return redirect()->back()->withErrors('message', 'Thêm mới thất bại');
     }

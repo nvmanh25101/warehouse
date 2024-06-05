@@ -30,7 +30,7 @@
             <div class="form-group row mb-3">
                 <label class="col-3 col-form-label">Nhà cung cấp</label>
                 <div class="col-9">
-                    <select class="form-control" name="customer_id">
+                    <select class="form-control" name="supplier_id">
                         @foreach($suppliers as $supplier)
                             <option value="{{ $supplier->id }}">
                                 {{ $supplier->name }}
@@ -40,22 +40,29 @@
                 </div>
             </div>
 
-            {{--            <div class="form-group">--}}
-            {{--                <label>Ảnh</label>--}}
-            {{--                <input type="file" class="form-control-file" name="image" value="{{ old('image') }}" required id="image"--}}
-            {{--                       accept="image/*">--}}
-            {{--                <div class="holder">--}}
-            {{--                    <img--}}
-            {{--                        id="imgPreview"--}}
-            {{--                        src="#" alt="pic"/>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
+            <div class="form-group">
+                <label>Ảnh</label>
+                <input type="file" class="form-control-file" name="image" value="{{ old('image') }}" required id="image"
+                       accept="image/*">
+                <div class="holder">
+                    <img
+                        id="imgPreview"
+                        src="#" alt="pic"/>
+                </div>
+            </div>
 
             <div class="form-group row mb-3">
                 <label for="quantity" class="col-3 col-form-label">Số lượng</label>
                 <div class="col-9">
                     <input type="number" name="quantity" id="quantity" class=" form-control" min="1"
                            value="{{ old('quantity') }}"/>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label for="unit" class="col-3 col-form-label">Đơn vị</label>
+                <div class="col-9">
+                    <input type="text" name="unit" id="unit" class=" form-control"
+                           value="{{ old('unit') }}"/>
                 </div>
             </div>
 

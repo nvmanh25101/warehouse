@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,7 +16,7 @@ return new class extends Migration
             $table->string('image', 255);
             $table->integer('quantity');
             $table->string('unit', 50);
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
