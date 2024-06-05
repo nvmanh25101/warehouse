@@ -4,7 +4,7 @@
     <!-- LOGO -->
     <a href="{{ route('dashboard') }}" class="logo text-center logo-light h-20">
         <span class="logo-lg">
-            <img src="{{ Vite::images('logo.png') }}" alt="" class="h-20">
+            <img src="{{ Vite::image('logo.png') }}" alt="" class="h-20">
         </span>
     </a>
 
@@ -25,12 +25,9 @@
                         <span> Sản phẩm </span>
                     </a>
                 </li>
-                {{--                <li class="side-nav-item">--}}
-                {{--                    <a href="{{ route('admin.employees.resign') }}" class="side-nav-link">Nhân viên nghỉ việc</a>--}}
-                {{--                </li>--}}
                 <li class="side-nav-item">
-                    <a href="" class="side-nav-link">
-                        <span>Voucher</span>
+                    <a href="{{ route('suppliers.index') }}" class="side-nav-link">
+                        <span> Nhà cung cấp </span>
                     </a>
                 </li>
                 <li class="side-nav-item">
@@ -39,17 +36,6 @@
                     </a>
                 </li>
             @endif
-            <li class="side-nav-item">
-                <a href="" class="side-nav-link">
-                    <span>Đơn hàng</span>
-                </a>
-            </li>
-            <li class="side-nav-item">
-                <a href="" class="side-nav-link">
-                    <span>Lịch đặt</span>
-                </a>
-            </li>
-
         </ul>
         <!-- End Sidebar -->
 

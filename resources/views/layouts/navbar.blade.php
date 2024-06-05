@@ -1,4 +1,4 @@
-@php use App\Enums\AdminType;use App\Enums\NotiType; @endphp
+@php use App\Enums\AdminType;use App\Enums\NotiType;use App\Enums\UserRoleEnum; @endphp
 <div class="navbar-custom">
     <ul class="list-unstyled topbar-right-menu float-right mb-0">
         <li class="dropdown notification-list">
@@ -7,7 +7,7 @@
                 <span>
                     <span class="account-user-name">{{ Auth::user()->name }}</span>
                     <span
-                        class="account-position">{{ \App\Enums\UserRoleEnum::getRole(Auth::user()->role) }}</span>
+                        class="account-position">{{ UserRoleEnum::getKeyByValue(Auth::user()->role) }}</span>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">

@@ -1,16 +1,22 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Enums;
 
-enum UserRoleEnum: int
-{
-    case ADMIN = 0;
+use BenSampo\Enum\Enum;
 
-    public static function getRole(int $role): string
+final class UserRoleEnum extends Enum
+{
+    public const ADMIN = 0;
+
+    public static function getKeyByValue($value): bool|int|string
     {
-        return match ($role) {
-            self::ADMIN => 'Admin',
-            default => 'User',
-        };
+        return array_search($value, self::getArrayView(), true);
+    }
+
+    public static function getArrayView(): array
+    {
+        return [
+            'Admin' => self::ADMIN,
+        ];
     }
 }

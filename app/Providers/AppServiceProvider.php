@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Vite;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Vite::macro('images', fn(string $asset) => asset("resources/images/{$asset}"));
+        Vite::macro('image', fn(string $asset) => $this->asset("resources/images/{$asset}"));
     }
 }

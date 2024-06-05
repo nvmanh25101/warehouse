@@ -1,11 +1,15 @@
 import './bootstrap';
-// import jQuery from 'jquery';
+import jQuery from 'jquery';
+import swal from 'sweetalert2';
+import DataTable from 'datatables.net-dt';
 
 import.meta.glob([
     '../images/**',
     '../fonts/**',
     '../css/**',
-    '../js/**',
+    './**',
 ]);
 
-// window.$ = jQuery;
+window.$ = jQuery;
+window.Swal = swal;
+window.DataTable = DataTable;

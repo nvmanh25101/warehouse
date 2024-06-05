@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @push('css')
-    @vite('resources/css/datatables.min.css')
 @endpush
 @section('content')
 
@@ -22,10 +21,8 @@
     </div>
 @endsection
 @push('js')
-    @vite('resources/js/jquery-3.7.1.min.js')
-    @vite('resources/js/datatables.min.js')
-    <script type="module">
 
+    <script type="module">
         $(document).ready(function () {
             let table = new DataTable('#data-table', {
                 dom: 'BRSlrtip',

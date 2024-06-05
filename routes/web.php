@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'processLogin'])->name('processLogin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::group([
     'as' => 'products.',
     'prefix' => 'products',
     'controller' => ProductController::class,
+    'middleware' => 'auth',
 ], static function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
@@ -29,6 +30,7 @@ Route::group([
     'as' => 'suppliers.',
     'prefix' => 'suppliers',
     'controller' => SupplierController::class,
+    'middleware' => 'auth',
 ], static function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');

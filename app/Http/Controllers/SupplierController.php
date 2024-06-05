@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Enums\CustomerTypeEnum;
 use App\Http\Requests\Customer\StoreRequest;
+use App\Http\Requests\Customer\UpdateRequest;
 use App\Models\Customer;
-use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 class SupplierController extends Controller
@@ -59,60 +56,33 @@ class SupplierController extends Controller
         return view('suppliers.create');
     }
 
-    public function edit($productId)
+    public function edit($supplierId)
     {
-        $categories = Category::query()->where('status', '=', StatusEnum::HOAT_DONG)
-            ->where('type', '=', TypeEnum::SAN_PHAM)
-            ->get(['id', 'name']);
-        $product = Product::query()->findOrFail($productId);
-        $reviews = $product->reviews()->with('customer')->get();
+        $supplier = Customer::query()->findOrFail($supplierId);
 
         return view(
-            'admin.products.edit',
+            'suppliers.edit',
             [
-                'product' => $product,
-                'categories' => $categories,
-                'reviews' => $reviews,
+                'supplier' => $supplier,
             ]
         );
     }
 
-    public function destroy($productId)
+    public function destroy($supplierId)
     {
-        Product::destroy($productId);
+        Customer::destroy($supplierId);
 
         return response()->json([
             'success' => 'Xóa thành công',
         ]);
     }
 
-    public function review(Request $request, $id, $reviewId)
+    public function update(UpdateRequest $request, $supplierId)
     {
-        $product = Product::query()->findOrFail($id);
-        $review = $product->reviews()->findOrFail($reviewId);
-        $review->update([
-            'reply' => $request->get('reply'),
-            'admin_id' => Auth::guard('admin')->user()->id,
-        ]);
+        $supplier = Customer::query()->findOrFail($supplierId);
 
-        return redirect()->back()->with(['success' => 'Phản hồi thành công']);
-    }
-
-    public function update(UpdateRequest $request, $productId)
-    {
-        $product = Product::query()->findOrFail($productId);
-        $arr = $request->validated();
-        if ($request->hasFile('image')) {
-            if (Storage::disk('public')->exists($product->image)) {
-                Storage::disk('public')->delete($product->image);
-            }
-            $path = Storage::disk('public')->putFile('images', $request->file('image'));
-            $arr['image'] = $path;
-        }
-        $product->fill($arr);
-
-        if ($product->save()) {
-            return redirect()->route('admin.products.index')->with(['success' => 'Cập nhật thành công']);
+        if ($supplier->update($request->validated())) {
+            return redirect()->route('suppliers.index')->with(['success' => 'Cập nhật thành công']);
         }
         return redirect()->back()->withErrors('message', 'Cập nhật thất bại');
     }
