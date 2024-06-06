@@ -23,7 +23,7 @@
     <script type="module">
         $(document).ready(function () {
             let table = $('#data-table').DataTable({
-                dom: 'BRSlrtip',
+                dom: 'BRStp',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('products.api') }}',
