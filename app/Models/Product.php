@@ -10,7 +10,6 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'code',
         'name',
         'unit',
         'quantity',
@@ -18,4 +17,9 @@ class Product extends Model
         'supplier_id',
         'note',
     ];
+
+    public function receipts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Receipt::class);
+    }
 }

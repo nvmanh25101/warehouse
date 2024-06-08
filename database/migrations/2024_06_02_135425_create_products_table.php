@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('quantity');
             $table->string('unit', 50);
             $table->text('note')->nullable();
+            $table->foreignId('supplier_id')->constrained('customers');
             $table->timestamps();
         });
     }

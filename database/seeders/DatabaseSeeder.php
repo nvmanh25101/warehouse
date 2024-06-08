@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin123'),
             'phone' => "0123456789",
-            'address' => "Hà Nội",
+            'city' => "Hà Nội",
+            'district' => 'Thanh Xuan',
+            'ward' => 'Nhân Chính',
+            'address' => "Số 1, ngõ 1, phố 1",
             'role' => UserRoleEnum::ADMIN
         ]);
     }
