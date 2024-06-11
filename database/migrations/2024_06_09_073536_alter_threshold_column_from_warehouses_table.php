@@ -10,12 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('warehouses', function (Blueprint $table) {
-            $table->id();
-            $table->integer('quantity');
-            $table->tinyInteger('threshold');
-            $table->foreignId('product_id')->constrained();
-            $table->timestamps();
+        Schema::table('warehouses', function (Blueprint $table) {
+            $table->tinyInteger('threshold')->nullable()->change();
         });
     }
 
@@ -24,6 +20,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('warehouses');
+        Schema::table('warehouses', function (Blueprint $table) {
+            $table->tinyInteger('threshold')->change();
+        });
     }
 };

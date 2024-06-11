@@ -25,7 +25,7 @@
     <script type="module">
         $(document).ready(function () {
             let table = new DataTable('#data-table', {
-                dom: 'BRSlrtip',
+                dom: 'BRStip',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('suppliers.api') }}',

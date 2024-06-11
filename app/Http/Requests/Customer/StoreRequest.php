@@ -32,10 +32,25 @@ class StoreRequest extends FormRequest
                 'string',
                 'max:15',
             ],
+            'city' => [
+                'required',
+                'string',
+                'max:50',
+            ],
+            'district' => [
+                'required',
+                'string',
+                'max:50',
+            ],
+            'ward' => [
+                'required',
+                'string',
+                'max:50',
+            ],
             'address' => [
                 'required',
                 'string',
-                'max:255',
+                'max:150',
             ],
             'note' => [
                 'nullable',

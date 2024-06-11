@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\Receipt;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,11 +23,11 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'unit' => ['required', 'string', 'max:255'],
-            'quantity' => ['required', 'numeric'],
-            'image' => ['required', 'image'],
-            'supplier_id' => ['required', 'exists:customers,id'],
             'note' => ['nullable', 'text'],
+            'product_ids' => ['required', 'array'],
+            'product_ids.*' => ['required', 'integer', 'exists:products,id'],
+            'quantities' => ['required', 'array'],
+            'quantities.*' => ['required', 'integer', 'min:1'],
         ];
     }
 }

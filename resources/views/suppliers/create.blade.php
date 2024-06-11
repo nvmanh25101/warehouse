@@ -14,17 +14,38 @@
                 </div>
             </div>
             <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Địa chỉ</label>
-                <div class="col-9">
-                    <input type="text" class="form-control" name="address"
-                           value="{{ old('address') }}" required>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
                 <label class="col-3 col-form-label">Số điện thoại</label>
                 <div class="col-9">
                     <input type="text" class="form-control" name="phone"
                            value="{{ old('phone') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Thành phố</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="city"
+                           value="{{ old('city') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Quận/ Huyện</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="district"
+                           value="{{ old('district') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Xã/ Phường</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="ward"
+                           value="{{ old('ward') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Địa chỉ</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="address"
+                           value="{{ old('address') }}" required>
                 </div>
             </div>
             <div class="form-group row mb-3">
