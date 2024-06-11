@@ -43,6 +43,11 @@
                     </a>
                 </li>
                 <li class="side-nav-item">
+                    <a href="{{ route('customers.index') }}" class="side-nav-link">
+                        <span> Khách hàng </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
                     <a href="{{ route('suppliers.index') }}" class="side-nav-link">
                         <span> Nhà cung cấp </span>
                     </a>

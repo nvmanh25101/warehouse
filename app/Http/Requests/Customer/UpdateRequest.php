@@ -39,7 +39,7 @@ class UpdateRequest extends FormRequest
             ],
             'note' => [
                 'nullable',
-                'text',
+                'string',
             ],
         ];
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -44,6 +45,20 @@ Route::group([
     Route::delete('/{supplier}/delete', 'delete')->name('destroy');
 });
 
+Route::group([
+    'as' => 'customers.',
+    'prefix' => 'customers',
+    'controller' => CustomerController::class,
+    'middleware' => 'auth',
+], static function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::get('/api', 'api')->name('api');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/{customer}/edit', 'edit')->name('edit');
+    Route::put('/{customer}/update', 'update')->name('update');
+    Route::delete('/{customer}/delete', 'delete')->name('destroy');
+});
 Route::group([
     'as' => 'receipts.',
     'prefix' => 'receipts',

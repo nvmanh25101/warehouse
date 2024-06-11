@@ -54,7 +54,7 @@ class StoreRequest extends FormRequest
             ],
             'note' => [
                 'nullable',
-                'text',
+                'string',
             ],
         ];
     }

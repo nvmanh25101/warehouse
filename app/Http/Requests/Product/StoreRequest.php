@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
             'quantity' => ['required', 'numeric'],
             'image' => ['required', 'image'],
             'supplier_id' => ['required', 'exists:customers,id'],
-            'note' => ['nullable', 'text'],
+            'note' => ['nullable', 'string'],
         ];
     }
 }

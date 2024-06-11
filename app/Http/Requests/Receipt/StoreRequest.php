@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'note' => ['nullable', 'text'],
+            'note' => ['nullable', 'string'],
             'product_ids' => ['required', 'array'],
             'product_ids.*' => ['required', 'integer', 'exists:products,id'],
             'quantities' => ['required', 'array'],
