@@ -51,6 +51,12 @@ class ReceiptController extends Controller
             $product_ids = $request['product_ids'];
             $productsData = [];
 
+            $stock = Product::query()->whereIn('id', $product_ids)->get()->pluck('quantity', 'id');
+            foreach ($product_ids as $index => $product_id) {
+                if ($stock[$product_id] < $quantities[$index]) {
+                    return redirect()->back()->withErrors('message', 'Số lượng sản phẩm không đủ');
+                }
+            }
             foreach ($product_ids as $index => $product_id) {
                 $productsData[] = [
                     "id" => (int) $product_id,
