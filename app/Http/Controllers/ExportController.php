@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Receipt\StoreRequest;
+use App\Enums\CustomerTypeEnum;
+use App\Http\Requests\Export\StoreRequest;
+use App\Models\Customer;
+use App\Models\Export;
 use App\Models\Product;
-use App\Models\Receipt;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Yajra\DataTables\DataTables;
 
-class ReceiptController extends Controller
+class ExportController extends Controller
 {
-    public string $ControllerName = 'Phiếu nhập';
+    public string $ControllerName = 'Phiếu xuất';
 
     public function __construct()
     {
@@ -24,17 +26,20 @@ class ReceiptController extends Controller
 
     public function index()
     {
-        return view('receipts.index');
+        return view('exports.index');
     }
 
     public function api()
     {
-        return DataTables::of(Receipt::query())
+        return DataTables::of(Export::query())
             ->addColumn('user_name', function ($object) {
                 return $object->user_name;
             })
+            ->addColumn('customer_name', function ($object) {
+                return $object->customer_name;
+            })
             ->addColumn('edit', function ($object) {
-                return route('receipts.edit', $object);
+                return route('exports.edit', $object);
             })
             ->make(true);
     }
@@ -46,11 +51,17 @@ class ReceiptController extends Controller
 
         DB::beginTransaction();
         try {
-            $receipt = Receipt::query()->create($request);
+            $export = Export::query()->create($request);
             $quantities = $request['quantities'];
             $product_ids = $request['product_ids'];
             $productsData = [];
 
+            $stock = Warehouse::query()->whereIn('id', $product_ids)->get()->pluck('quantity', 'id');
+            foreach ($product_ids as $index => $product_id) {
+                if ($stock[$product_id] < $quantities[$index]) {
+                    return redirect()->back()->withErrors('message', 'Số lượng sản phẩm không đủ');
+                }
+            }
             foreach ($product_ids as $index => $product_id) {
                 $productsData[] = [
                     "id" => (int) $product_id,
@@ -61,16 +72,14 @@ class ReceiptController extends Controller
             $products = [];
             foreach ($productsData as $product) {
                 $products[$product['id']] = ['quantity' => $product['quantity']];
-                Product::query()->where('id', $product['id'])->decrement('quantity', $product['quantity']);
+                Warehouse::query()->where('id', $product['id'])->decrement('quantity', $product['quantity']);
             }
 
-            $receipt->products()->attach($products);
-
-            $this->handleInsertWarehouse($product_ids, $quantities);
+            $export->warehouses()->attach($products);
 
             DB::commit();
 
-            return redirect()->route('receipts.index')->with(['success' => 'Tạo mới thành công']);
+            return redirect()->route('exports.index')->with(['success' => 'Tạo mới thành công']);
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -80,30 +89,13 @@ class ReceiptController extends Controller
 
     public function create()
     {
-        $products = Product::query()->get();
+        $warehouses = Warehouse::with('product')->get();
+        $customers = Customer::query()->where('type', CustomerTypeEnum::KHACH_HANG)->get();
 
-        return view('receipts.create', [
-            'products' => $products,
+        return view('exports.create', [
+            'warehouses' => $warehouses,
+            'customers' => $customers,
         ]);
-    }
-
-    public function handleInsertWarehouse($product_ids, $quantities): bool|int
-    {
-        $products = [];
-        foreach ($product_ids as $index => $product_id) {
-            $product_warehouse = Warehouse::query()->where('product_id', $product_id);
-            if ($product_warehouse->exists()) {
-                return $product_warehouse->increment('quantity', $quantities[$index]);
-            }
-
-            $products[] = [
-                'product_id' => $product_id,
-                'quantity' => $quantities[$index],
-                'created_at' => now(),
-            ];
-        }
-
-        return Warehouse::query()->insert($products);
     }
 
     public function edit($orderId)

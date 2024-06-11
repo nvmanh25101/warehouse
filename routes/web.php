@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReceiptController;
@@ -68,4 +69,19 @@ Route::group([
     Route::get('/api', 'api')->name('api');
     Route::get('/{warehouse}/edit', 'edit')->name('edit');
     Route::put('/{warehouse}/update', 'update')->name('update');
+});
+
+Route::group([
+    'as' => 'exports.',
+    'prefix' => 'exports',
+    'controller' => ExportController::class,
+    'middleware' => 'auth',
+], function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/api', 'api')->name('api');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/{receipt}/edit', 'edit')->name('edit');
+    Route::put('/{receipt}/update', 'update')->name('update');
+    Route::delete('/{receipt}/delete', 'delete')->name('destroy');
 });

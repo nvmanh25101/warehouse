@@ -26,6 +26,12 @@
                     </a>
                 </li>
                 <li class="side-nav-item">
+                    <a href="{{ route('exports.index') }}" class="side-nav-link" aria-expanded="true">
+                        {{--                        <i class="uil-store"></i>--}}
+                        <span> Quản lý xuất kho </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
                     <a href="{{ route('receipts.index') }}" class="side-nav-link" aria-expanded="true">
                         {{--                        <i class="uil-store"></i>--}}
                         <span> Quản lý nhập kho </span>
