@@ -25,7 +25,7 @@
     <script type="module">
         $(document).ready(function () {
             let table = new DataTable('#data-table', {
-                dom: 'BRStip',
+                dom: 'ftp',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('suppliers.api') }}',

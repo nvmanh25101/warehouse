@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
@@ -99,4 +100,14 @@ Route::group([
     Route::get('/{receipt}/edit', 'edit')->name('edit');
     Route::put('/{receipt}/update', 'update')->name('update');
     Route::delete('/{receipt}/delete', 'delete')->name('destroy');
+});
+
+Route::group([
+    'as' => 'profiles.',
+    'prefix' => 'profiles',
+    'controller' => ProfileController::class,
+    'middleware' => 'auth',
+], function () {
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}/update', 'update')->name('update');
 });

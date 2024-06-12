@@ -20,7 +20,7 @@
     <script type="module">
         $(document).ready(function () {
             let table = $('#data-table').DataTable({
-                dom: 'BRStp',
+                dom: 'ftp',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('warehouses.api') }}',
@@ -58,7 +58,7 @@
                     },
                 ]
             });
-            
+
             @if(session('success'))
             $.notify('{{ session('success') }}', "success");
             @endif
