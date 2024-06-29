@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-
+    <a href="{{ route('warehouses.export') }}">Xuất Excel</a>
     <div class="col-12">
         <table id="data-table" class="table table-hover dt-responsive nowrap w-100">
             <thead>
@@ -10,7 +10,7 @@
                 <th>Số lượng tồn</th>
                 <th>Ngày thêm</th>
                 <th>Cảnh báo</th>
-                <th>Sửa</th>
+                <th>Mức cảnh báo</th>
             </tr>
             </thead>
         </table>
@@ -53,7 +53,7 @@
                         orderable: false,
                         searchable: false,
                         render: function (data, type, row, meta) {
-                            return `<a class="btn btn-primary" href="${data}"><i class='mdi mdi-pencil'></i></a>`;
+                            return `<a class="btn btn-primary" href="${data}">Thiết lập</a>`;
                         }
                     },
                 ]

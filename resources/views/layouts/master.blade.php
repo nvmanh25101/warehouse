@@ -14,7 +14,6 @@
             <!-- Start Content-->
             <div class="container-fluid">
                 <!-- start page title -->
-                @include('layouts.breadcrumb')
                 <div class="row">
                     @include('layouts.errors')
                     @yield('content')

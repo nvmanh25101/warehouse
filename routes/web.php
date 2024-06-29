@@ -85,6 +85,7 @@ Route::group([
     Route::get('/api', 'api')->name('api');
     Route::get('/{warehouse}/edit', 'edit')->name('edit');
     Route::put('/{warehouse}/update', 'update')->name('update');
+    Route::get('/export/', 'export')->name('export');
 });
 
 Route::group([

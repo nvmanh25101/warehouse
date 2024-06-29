@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CustomerTypeEnum;
-use App\Http\Requests\Product\StoreRequest;
-use App\Http\Requests\Product\UpdateRequest;
+use App\Exports\WarehousesExport;
+use App\Http\Requests\WarehouseRequest;
 use App\Models\Customer;
-use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class WarehouseController extends Controller
@@ -44,67 +43,33 @@ class WarehouseController extends Controller
             ->make(true);
     }
 
-    public function edit($productId)
+    public function edit($warehouseId)
     {
         $suppliers = Customer::query()->where('type', '=', CustomerTypeEnum::NHA_CUNG_CAP)
             ->get(['id', 'name']);
 
-        $product = Product::query()->findOrFail($productId);
+        $warehouse = Warehouse::query()->with('product')->findOrFail($warehouseId);
 
         return view(
-            'products.edit',
+            'warehouse.edit',
             [
-                'product' => $product,
+                'product' => $warehouse->product,
+                'warehouse' => $warehouse,
                 'suppliers' => $suppliers,
             ]
         );
     }
 
-    public function destroy($productId)
+    public function update(WarehouseRequest $request, $warehouseId)
     {
-        Product::destroy($productId);
+        $warehouse = Warehouse::query()->findOrFail($warehouseId);
+        $warehouse->update($request->validated());
 
-        return response()->json([
-            'success' => 'Xóa thành công',
-        ]);
+        return redirect()->route('warehouses.index')->with(['success' => 'Cập nhật thành công']);
     }
 
-    public function update(UpdateRequest $request, $productId)
+    public function export()
     {
-        $product = Product::query()->findOrFail($productId);
-        $arr = $request->validated();
-        if ($request->hasFile('image')) {
-            if (Storage::exists($product->image)) {
-                Storage::delete($product->image);
-            }
-            $path = $request->file('image')->store('images');
-            $arr['image'] = $path;
-        }
-        $product->fill($arr);
-
-        if ($product->save()) {
-            return redirect()->route('products.index')->with(['success' => 'Cập nhật thành công']);
-        }
-        return redirect()->back()->withErrors('message', 'Cập nhật thất bại');
-    }
-
-    public function store(StoreRequest $request)
-    {
-        $path = $request->file('image')->store('images');
-        $arr = $request->validated();
-        $arr['image'] = $path;
-        $product = Product::query()->create($arr);
-        if ($product) {
-            return redirect()->route('products.index')->with(['success' => 'Thêm mới thành công']);
-        }
-        return redirect()->back()->withErrors('message', 'Thêm mới thất bại');
-    }
-
-    public function create()
-    {
-        $suppliers = Customer::query()->where('type', '=', CustomerTypeEnum::NHA_CUNG_CAP)
-            ->get(['id', 'name']);
-
-        return view('products.create', ['suppliers' => $suppliers]);
+        return Excel::download(new WarehousesExport(), 'warehouses.xlsx');
     }
 }
