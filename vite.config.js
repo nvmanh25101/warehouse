@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/vendor.min.js',
                 'resources/js/app.min.js',
+                'resources/css/notify.min.css',
             ],
             refresh: true,
             detectTls: 'warehouse.test',

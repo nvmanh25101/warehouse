@@ -4,11 +4,10 @@ namespace App\Enums;
 
 use BenSampo\Enum\Enum;
 
-final class UserRoleEnum extends Enum
+final class WarningEnum extends Enum
 {
-    public const ADMIN = 0;
-    public const IMPORTER = 1;
-    public const EXPORTER = 2;
+    public const CANH_BAO = 0;
+    public const BINH_THUONG = 1;
 
     public static function getKeyByValue($value): bool|int|string
     {
@@ -18,8 +17,8 @@ final class UserRoleEnum extends Enum
     public static function getArrayView(): array
     {
         return [
-            'Nhân viên bán hàng' => self::IMPORTER,
-            'Nhân viên xuất hàng' => self::EXPORTER,
+            'Cảnh báo' => self::CANH_BAO,
+            'Bình thường' => self::BINH_THUONG,
         ];
     }
 }

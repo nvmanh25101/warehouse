@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CustomerTypeEnum;
+use App\Enums\WarningEnum;
 use App\Exports\WarehousesExport;
 use App\Http\Requests\WarehouseRequest;
 use App\Models\Customer;
@@ -25,20 +26,31 @@ class WarehouseController extends Controller
 
     public function index()
     {
-        return view('warehouse.index');
+        $warnings = WarningEnum::getArrayView();
+
+        return view('warehouse.index', [
+            'warnings' => $warnings,
+        ]);
     }
 
     public function api()
     {
         return DataTables::of(Warehouse::query())
             ->addColumn('name', function ($object) {
-                return $object->product->name;
+                return $object->product()->withTrashed()->first()->name;
             })
             ->addColumn('warning', function ($object) {
                 return $object->warning;
             })
             ->addColumn('edit', function ($object) {
                 return route('warehouses.edit', $object);
+            })
+            ->filterColumn('warning', function ($query, $keyword) {
+                if ($keyword === '0') {
+                    $query->whereColumn('quantity', '<=', 'threshold');
+                } elseif ($keyword === '1') {
+                    $query->whereColumn('quantity', '>', 'threshold');
+                }
             })
             ->make(true);
     }
@@ -53,7 +65,7 @@ class WarehouseController extends Controller
         return view(
             'warehouse.edit',
             [
-                'product' => $warehouse->product,
+                'product' => $warehouse->product()->withTrashed()->first(),
                 'warehouse' => $warehouse,
                 'suppliers' => $suppliers,
             ]

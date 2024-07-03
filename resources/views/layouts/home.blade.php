@@ -7,17 +7,14 @@
     </div>
 @endsection
 @push('js')
-    @if (session('error'))
-        <script>
-            $.toast({
-                heading: 'Thông báo',
-                text: '{{ session('error') }}',
-                icon: 'success',
-                loader: true,
-                loaderBg: 'rgba(0,0,0,0.2)',
-                position: 'top-right',
-                showHideTransition: 'slide',
-            })
-        </script>
-    @endif
+    <script src="{{ asset('storage/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('storage/notify.min.js') }}"></script>
+    <script type="text/javascript">
+        @if(session('success'))
+        $.notify('{{ session('success') }}', "success");
+        @endif
+        @if(session('error'))
+        $.notify('{{ session('error') }}', "error");
+        @endif
+    </script>
 @endpush

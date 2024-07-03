@@ -18,46 +18,51 @@
                     <span>Dashboards</span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ route('products.index') }}" class="side-nav-link" aria-expanded="true">
+                    {{--                        <i class="uil-store"></i>--}}
+                    <span> Sản phẩm </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('exports.index') }}" class="side-nav-link" aria-expanded="true">
+                    {{--                        <i class="uil-store"></i>--}}
+                    <span> Quản lý xuất kho </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('receipts.index') }}" class="side-nav-link" aria-expanded="true">
+                    {{--                        <i class="uil-store"></i>--}}
+                    <span> Quản lý nhập kho </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('warehouses.index') }}" class="side-nav-link">
+                    <span> Quản lý tồn kho </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('customers.index') }}" class="side-nav-link">
+                    <span> Khách hàng </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('suppliers.index') }}" class="side-nav-link">
+                    <span> Nhà cung cấp </span>
+                </a>
+            </li>
             @if (Auth::user()->role === \App\Enums\UserRoleEnum::ADMIN)
                 <li class="side-nav-item">
-                    <a href="{{ route('products.index') }}" class="side-nav-link" aria-expanded="true">
-                        {{--                        <i class="uil-store"></i>--}}
-                        <span> Sản phẩm </span>
-                    </a>
-                </li>
-                <li class="side-nav-item">
-                    <a href="{{ route('exports.index') }}" class="side-nav-link" aria-expanded="true">
-                        {{--                        <i class="uil-store"></i>--}}
-                        <span> Quản lý xuất kho </span>
-                    </a>
-                </li>
-                <li class="side-nav-item">
-                    <a href="{{ route('receipts.index') }}" class="side-nav-link" aria-expanded="true">
-                        {{--                        <i class="uil-store"></i>--}}
-                        <span> Quản lý nhập kho </span>
-                    </a>
-                </li>
-                <li class="side-nav-item">
-                    <a href="{{ route('warehouses.index') }}" class="side-nav-link">
-                        <span> Quản lý tồn kho </span>
-                    </a>
-                </li>
-                <li class="side-nav-item">
-                    <a href="{{ route('customers.index') }}" class="side-nav-link">
-                        <span> Khách hàng </span>
-                    </a>
-                </li>
-                <li class="side-nav-item">
-                    <a href="{{ route('suppliers.index') }}" class="side-nav-link">
-                        <span> Nhà cung cấp </span>
-                    </a>
-                </li>
-                <li class="side-nav-item">
-                    <a href="" class="side-nav-link">
-                        <span>Thống kê</span>
+                    <a href="{{ route('users.index') }}" class="side-nav-link">
+                        <span> Nhân viên </span>
                     </a>
                 </li>
             @endif
+            <li class="side-nav-item">
+                <a href="" class="side-nav-link">
+                    <span>Thống kê</span>
+                </a>
+            </li>
         </ul>
         <!-- End Sidebar -->
 

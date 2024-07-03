@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\Export;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,11 +23,9 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'unit' => ['required', 'string', 'max:255'],
-            'quantity' => ['required', 'numeric'],
-            'image' => ['image'],
-            'supplier_id' => ['required', 'exists:customers,id'],
             'note' => ['nullable', 'string'],
+            'customer_id' => ['required', 'integer', 'exists:customers,id'],
+            'export_date' => ['required', 'date'],
         ];
     }
 }

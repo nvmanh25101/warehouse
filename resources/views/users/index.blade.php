@@ -1,17 +1,19 @@
 @extends('layouts.master')
+@push('css')
+@endpush
 @section('content')
 
     <div class="col-12">
-        <a href="{{ route('exports.create') }}" class="btn btn-outline-primary">Thêm mới</a>
+        <a href="{{ route('users.create') }}" class="btn btn-outline-primary">Thêm mới</a>
 
         <table id="data-table" class="table table-hover dt-responsive nowrap w-100">
             <thead>
             <tr>
                 <th>#</th>
                 <th>Tên</th>
-                <th>Người tạo</th>
-                <th>Ngày tạo</th>
-                <th>Khách hàng</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Chức vụ</th>
                 <th>Sửa</th>
                 <th>Xóa</th>
             </tr>
@@ -19,6 +21,7 @@
         </table>
     </div>
 @endsection
+
 @push('js')
     <script src="{{ asset('storage/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('storage/notify.min.js') }}"></script>
@@ -32,11 +35,14 @@
     </script>
     <script type="module">
         $(document).ready(function () {
-            let table = $('#data-table').DataTable({
+            let table = new DataTable('#data-table', {
                 dom: 'ftp',
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('exports.api') }}',
+                ajax: '{{ route('users.api') }}',
+                search: {
+                    boundary: true
+                },
                 "columnDefs": [{
                     "targets": 1,
                     "data": "name",
@@ -49,9 +55,9 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                    {data: 'user_name', name: 'user_name'},
-                    {data: 'created_at', name: 'created_at'},
-                    {data: 'customer_name', name: 'customer_name'},
+                    {data: 'address', name: 'address'},
+                    {data: 'phone', name: 'phone'},
+                    {data: 'role_name', name: 'role_name'},
                     {
                         data: 'edit',
                         orderable: false,
@@ -107,10 +113,10 @@
                                 });
                                 table.draw();
                             },
-                            error: function (res) {
+                            error: function () {
                                 swalWithBootstrapButtons.fire({
                                     title: "Hủy!",
-                                    text: 'Bạn không có quyền xóa!',
+                                    text: 'Đã xảy ra lỗi!',
                                     icon: "error"
                                 });
                             },

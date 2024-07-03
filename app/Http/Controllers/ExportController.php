@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\CustomerTypeEnum;
 use App\Http\Requests\Export\StoreRequest;
+use App\Http\Requests\Export\UpdateRequest;
 use App\Models\Customer;
 use App\Models\Export;
 use App\Models\Product;
@@ -40,6 +41,9 @@ class ExportController extends Controller
             })
             ->addColumn('edit', function ($object) {
                 return route('exports.edit', $object);
+            })
+            ->addColumn('destroy', function ($object) {
+                return route('exports.destroy', $object);
             })
             ->make(true);
     }
@@ -98,42 +102,34 @@ class ExportController extends Controller
         ]);
     }
 
-    public function edit($orderId)
+    public function edit(Export $export)
     {
-        deleteNoti($orderId, NotiType::DON_HANG);
+        $products = Product::query()->withTrashed()->get();
+        $customers = Customer::query()->where('type', CustomerTypeEnum::KHACH_HANG)->get();
 
-        $employees = Admin::query()->where('role', '=', AdminType::VAN_CHUYEN)
-            ->get(['id', 'name']);
-        $order = Order::query()->with('voucher')->findOrFail($orderId);
-
-        return view(
-            'admin.orders.edit',
-            [
-                'order' => $order,
-                'employees' => $employees,
-            ]
-        );
+        return view('exports.edit', [
+            'export' => $export,
+            'products' => $products,
+            'customers' => $customers,
+        ]);
     }
 
-    public function update(UpdateRequest $request, $orderId)
+    public function update(UpdateRequest $request, Export $export)
     {
-        $order = Order::query()->findOrFail($orderId);
-        $arr = $request->validated();
-        if ($arr['status'] == OrderStatusEnum::DANG_GIAO) {
-            $arr['delivered_at'] = now();
+        $request = $request->validated();
+        if ($export->update($request)) {
+            return redirect()->route('exports.index')->with(['success' => 'Cập nhật thành công']);
         }
-        $order->fill($arr);
-        if ($order->save()) {
-            if ($arr['status'] == OrderStatusEnum::DA_HUY) {
-                foreach ($order->products as $product) {
-                    Product::query()->where('id', $product->id)->increment('quantity', $product->pivot->quantity);
-                    Product::query()->where('id', $product->id)->decrement('sold', $product->pivot->quantity);
-                }
-            }
 
-            return redirect()->back()->with(['success' => 'Cập nhật thành công']);
-        }
         return redirect()->back()->withErrors('message', 'Cập nhật thất bại');
     }
 
+    public function destroy(Export $export)
+    {
+        $export->delete();
+        
+        return response()->json([
+            'success' => 'Xóa thành công',
+        ]);
+    }
 }

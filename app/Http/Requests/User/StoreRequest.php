@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Customer;
+namespace App\Http\Requests\User;
 
+use App\Enums\UserRoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -52,9 +54,16 @@ class UpdateRequest extends FormRequest
                 'string',
                 'max:150',
             ],
-            'note' => [
-                'nullable',
+            'username' => [
+                'required',
                 'string',
+                'max:100',
+                'unique:users,username',
+            ],
+            'role' => [
+                'required',
+                'integer',
+                Rule::in(UserRoleEnum::asArray()),
             ],
         ];
     }

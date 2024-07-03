@@ -11,13 +11,6 @@
             @csrf
             @method('PUT')
             <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Mã sản phẩm</label>
-                <div class="col-9">
-                    <input type="text" class="form-control" name="code"
-                           value="{{ $product->code }}" required>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
                 <label class="col-3 col-form-label">Tên sản phẩm</label>
                 <div class="col-9">
                     <input type="text" class="form-control" name="name"

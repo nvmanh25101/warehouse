@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Customer;
+namespace App\Http\Requests\User;
 
+use App\Enums\UserRoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -52,9 +54,16 @@ class UpdateRequest extends FormRequest
                 'string',
                 'max:150',
             ],
-            'note' => [
+            'password' => [
                 'nullable',
                 'string',
+                'min:8',
+                'max:255',
+            ],
+            'role' => [
+                'required',
+                'integer',
+                Rule::in(UserRoleEnum::asArray()),
             ],
         ];
     }

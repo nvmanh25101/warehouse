@@ -65,9 +65,9 @@
                                 <select class="custom-select">
                                     @foreach($warehouses as $warehouse)
                                         <option value="{{ $warehouse->id }}"
-                                                data-created_at="{{ $warehouse->product->created_at }}"
+                                                data-created_at="{{ $warehouse->product()->withTrashed()->first()->created_at }}"
                                                 data-stock="{{ $warehouse->quantity }}"
-                                        >{{ $warehouse->product->name }}</option>
+                                        >{{ $warehouse->product()->withTrashed()->first()->name }}</option>
                                     @endforeach
                                 </select>
                                 <div class="input-group-append">
