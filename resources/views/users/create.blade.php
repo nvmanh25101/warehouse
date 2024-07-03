@@ -3,65 +3,71 @@
 @endpush
 @section('content')
     <div class="col-12">
-        <form method="post" action="{{ route('customers.update', $customer) }}" class="needs-validation"
-              id="form-edit"
-              enctype="multipart/form-data"
-              novalidate>
+        <form method="post" action="{{ route('users.store') }}" class="needs-validation form-horizontal" novalidate
+              enctype="multipart/form-data">
             @csrf
-            @method('PUT')
             <div class="form-group row mb-3">
                 <label class="col-3 col-form-label">Tên</label>
                 <div class="col-9">
                     <input type="text" class="form-control" name="name"
-                           value="{{ $customer->name }}" required>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Thành phố</label>
-                <div class="col-9">
-                    <input type="text" class="form-control" name="city"
-                           value="{{ $customer->city }}" required>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Quận/ Huyện</label>
-                <div class="col-9">
-                    <input type="text" class="form-control" name="district"
-                           value="{{ $customer->district }}" required>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Xã/ Phường</label>
-                <div class="col-9">
-                    <input type="text" class="form-control" name="ward"
-                           value="{{ $customer->ward }}" required>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Địa chỉ</label>
-                <div class="col-9">
-                    <input type="text" class="form-control" name="address"
-                           value="{{ $customer->address }}" required>
+                           value="{{ old('name') }}" required>
                 </div>
             </div>
             <div class="form-group row mb-3">
                 <label class="col-3 col-form-label">Số điện thoại</label>
                 <div class="col-9">
                     <input type="text" class="form-control" name="phone"
-                           value="{{ $customer->phone }}" required>
+                           value="{{ old('phone') }}" required>
                 </div>
             </div>
             <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Ghi chú</label>
+                <label class="col-3 col-form-label">Thành phố</label>
                 <div class="col-9">
-                    <textarea class="form-control" id="example-textarea" name="note"
-                              rows="5">{{ $customer->note }}</textarea>
+                    <input type="text" class="form-control" name="city"
+                           value="{{ old('city') }}" required>
                 </div>
             </div>
-            <button class="btn btn-primary mb-3" type="submit">Cập nhật</button>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Quận/ Huyện</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="district"
+                           value="{{ old('district') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Xã/ Phường</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="ward"
+                           value="{{ old('ward') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Địa chỉ</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="address"
+                           value="{{ old('address') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Tên đăng nhập</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="username"
+                           value="{{ old('username') }}" required>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label class="col-3 col-form-label">Chức vụ</label>
+                <div class="col-9">
+                    <select class="form-control" name="role" required>
+                        @foreach($roles as $key => $value)
+                            <option value="{{ $value }}">{{ $key }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary mb-3" type="submit">Thêm</button>
         </form>
     </div>
 @endsection
 @push('js')
-
 @endpush

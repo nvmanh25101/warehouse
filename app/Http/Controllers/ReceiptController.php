@@ -112,42 +112,24 @@ class ReceiptController extends Controller
         return Warehouse::query()->insert($products);
     }
 
-    public function edit($orderId)
+    public function edit(Receipt $receipt)
     {
-        deleteNoti($orderId, NotiType::DON_HANG);
+        $receipt->load('products');
 
-        $employees = Admin::query()->where('role', '=', AdminType::VAN_CHUYEN)
-            ->get(['id', 'name']);
-        $order = Order::query()->with('voucher')->findOrFail($orderId);
-
-        return view(
-            'admin.orders.edit',
-            [
-                'order' => $order,
-                'employees' => $employees,
-            ]
-        );
+        return view('receipts.edit', [
+            'receipt' => $receipt,
+        ]);
     }
 
-    public function update(UpdateRequest $request, $orderId)
+    public function update(StoreRequest $request, Receipt $receipt)
     {
-        $order = Order::query()->findOrFail($orderId);
-        $arr = $request->validated();
-        if ($arr['status'] == OrderStatusEnum::DANG_GIAO) {
-            $arr['delivered_at'] = now();
-        }
-        $order->fill($arr);
-        if ($order->save()) {
-            if ($arr['status'] == OrderStatusEnum::DA_HUY) {
-                foreach ($order->products as $product) {
-                    Product::query()->where('id', $product->id)->increment('quantity', $product->pivot->quantity);
-                    Product::query()->where('id', $product->id)->decrement('sold', $product->pivot->quantity);
-                }
-            }
+        $request = $request->validated();
+        $receipt->fill($request);
 
-            return redirect()->back()->with(['success' => 'Cập nhật thành công']);
+        if ($receipt->save()) {
+            return redirect()->route('receipts.index')->with(['success' => 'Cập nhật thành công']);
         }
+
         return redirect()->back()->withErrors('message', 'Cập nhật thất bại');
     }
-
 }

@@ -17,6 +17,10 @@ class Receipt extends Model
         'user_id',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:d-m-Y',
+    ];
+    
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class)

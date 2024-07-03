@@ -19,6 +19,10 @@ class Export extends Model
         'customer_id',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:d-m-Y',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

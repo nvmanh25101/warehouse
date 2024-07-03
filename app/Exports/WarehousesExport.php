@@ -22,7 +22,7 @@ class WarehousesExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         $products->load('product', 'exports');
         foreach ($products as $product) {
             $product->exports->quantity = $product->exports->sum('pivot.quantity');
-            $product->name = $product->product->name;
+            $product->name = $product->product()->withTrashed()->first()->name;
             $product->export_quantity = $product->exports->quantity;
         }
 

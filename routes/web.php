@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ Route::group([
     Route::post('/store', 'store')->name('store');
     Route::get('/{product}/edit', 'edit')->name('edit');
     Route::put('/{product}/update', 'update')->name('update');
-    Route::delete('/{product}/delete', 'delete')->name('destroy');
+    Route::delete('/{product}/delete', 'destroy')->name('destroy');
 });
 
 Route::group([
@@ -43,7 +44,7 @@ Route::group([
     Route::post('/store', 'store')->name('store');
     Route::get('/{supplier}/edit', 'edit')->name('edit');
     Route::put('/{supplier}/update', 'update')->name('update');
-    Route::delete('/{supplier}/delete', 'delete')->name('destroy');
+    Route::delete('/{supplier}/delete', 'destroy')->name('destroy');
 });
 
 Route::group([
@@ -58,8 +59,9 @@ Route::group([
     Route::post('/store', 'store')->name('store');
     Route::get('/{customer}/edit', 'edit')->name('edit');
     Route::put('/{customer}/update', 'update')->name('update');
-    Route::delete('/{customer}/delete', 'delete')->name('destroy');
+    Route::delete('/{customer}/delete', 'destroy')->name('destroy');
 });
+
 Route::group([
     'as' => 'receipts.',
     'prefix' => 'receipts',
@@ -70,9 +72,8 @@ Route::group([
     Route::get('/api', 'api')->name('api');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
-    Route::get('/{receipt}/edit', 'edit')->name('edit');
     Route::put('/{receipt}/update', 'update')->name('update');
-    Route::delete('/{receipt}/delete', 'delete')->name('destroy');
+    Route::get('/{receipt}/edit', 'edit')->name('edit');
 });
 
 Route::group([
@@ -98,9 +99,9 @@ Route::group([
     Route::get('/api', 'api')->name('api');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
-    Route::get('/{receipt}/edit', 'edit')->name('edit');
-    Route::put('/{receipt}/update', 'update')->name('update');
-    Route::delete('/{receipt}/delete', 'delete')->name('destroy');
+    Route::delete('/{export}/delete', 'destroy')->name('destroy')->middleware('admin');
+    Route::get('/{export}/edit', 'edit')->name('edit');
+    Route::put('/{export}/update', 'update')->name('update');
 });
 
 Route::group([
@@ -111,4 +112,19 @@ Route::group([
 ], function () {
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::put('/{id}/update', 'update')->name('update');
+});
+
+Route::group([
+    'as' => 'users.',
+    'prefix' => 'users',
+    'controller' => UserController::class,
+    'middleware' => ['auth', 'admin'],
+], static function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::get('/api', 'api')->name('api');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/{user}/edit', 'edit')->name('edit');
+    Route::put('/{user}/update', 'update')->name('update');
+    Route::delete('/{user}/delete', 'destroy')->name('destroy');
 });

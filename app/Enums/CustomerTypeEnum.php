@@ -6,6 +6,6 @@ use BenSampo\Enum\Enum;
 
 final class CustomerTypeEnum extends Enum
 {
-    const KHACH_HANG = 0;
-    const NHA_CUNG_CAP = 1;
+    public const KHACH_HANG = 0;
+    public const NHA_CUNG_CAP = 1;
 }

@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'unit' => ['required', 'string', 'max:255'],
             'quantity' => ['required', 'numeric'],
-            'image' => ['required', 'image'],
+            'image' => ['image'],
             'supplier_id' => ['required', 'exists:customers,id'],
             'note' => ['nullable', 'string'],
         ];

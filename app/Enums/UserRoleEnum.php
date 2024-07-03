@@ -7,6 +7,8 @@ use BenSampo\Enum\Enum;
 final class UserRoleEnum extends Enum
 {
     public const ADMIN = 0;
+    public const IMPORTER = 1;
+    public const EXPORTER = 2;
 
     public static function getKeyByValue($value): bool|int|string
     {
@@ -16,7 +18,8 @@ final class UserRoleEnum extends Enum
     public static function getArrayView(): array
     {
         return [
-            'Admin' => self::ADMIN,
+            'Nhân viên bán hàng' => self::IMPORTER,
+            'Nhân viên xuất hàng' => self::EXPORTER,
         ];
     }
 }
