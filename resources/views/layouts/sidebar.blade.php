@@ -59,7 +59,7 @@
                 </li>
             @endif
             <li class="side-nav-item">
-                <a href="" class="side-nav-link">
+                <a href="{{ route('statistic') }}" class="side-nav-link">
                     <span>Thống kê</span>
                 </a>
             </li>

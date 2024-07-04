@@ -35,7 +35,7 @@ class WarehouseController extends Controller
 
     public function api()
     {
-        return DataTables::of(Warehouse::query())
+        return DataTables::of(Warehouse::query()->with(['product', 'exports']))
             ->addColumn('name', function ($object) {
                 return $object->product()->withTrashed()->first()->name;
             })

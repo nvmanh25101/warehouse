@@ -16,6 +16,8 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'processLogin'])->name('processLogin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/statistic', [HomeController::class, 'statistic'])->name('statistic')->middleware('auth');
+Route::get('/statistic/api', [HomeController::class, 'api'])->name('statistic_api')->middleware('auth');
 
 Route::group([
     'as' => 'products.',
