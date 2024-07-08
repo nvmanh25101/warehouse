@@ -1,7 +1,7 @@
 import './bootstrap';
 import jQuery from 'jquery';
 import swal from 'sweetalert2';
-import DataTable from 'datatables.net-dt';
+import DataTable from 'datatables.net-bs5';
 
 import.meta.glob([
     '../images/**',

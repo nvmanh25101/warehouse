@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
     <!-- App css -->
-    @vite('resources/css/icons.min.css')
+    @vite('resources/css/icons.css')
     @vite('resources/css/app-creative.min.css')
 </head>
 <body class="authentication-bg" data-layout-config="{&quot;darkMode&quot;:false}">

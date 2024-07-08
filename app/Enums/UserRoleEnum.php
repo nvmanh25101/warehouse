@@ -18,7 +18,7 @@ final class UserRoleEnum extends Enum
     public static function getArrayView(): array
     {
         return [
-            'Nhân viên bán hàng' => self::IMPORTER,
+            'Nhân viên nhập hàng' => self::IMPORTER,
             'Nhân viên xuất hàng' => self::EXPORTER,
         ];
     }

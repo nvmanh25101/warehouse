@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.side-nav-item {
+    margin: 4px 0;
+}
+
+.holder {
+    display: none;
+}
+
+.draft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

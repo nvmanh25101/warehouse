@@ -35,13 +35,22 @@
     <script type="module">
         $(document).ready(function () {
             let table = new DataTable('#data-table', {
-                dom: 'ftp',
-                processing: true,
-                serverSide: true,
-                ajax: '{{ route('customers.api') }}',
                 search: {
                     boundary: true
                 },
+                layout: {
+                    topStart: {
+                        search: {
+                            placeholder: 'Tìm kiếm',
+                            text: ''
+                        }
+                    },
+                    topEnd: null,
+                    bottomStart: null
+                },
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('customers.api') }}',
                 "columnDefs": [{
                     "targets": 1,
                     "data": "name",

@@ -2,8 +2,9 @@
 @section('content')
 
     <div class="col-12">
-        <a href="{{ route('exports.create') }}" class="btn btn-outline-primary">Thêm mới</a>
-
+        <div class="d-flex flex-row-reverse">
+            <a href="{{ route('exports.create') }}" class="btn btn-outline-primary">Thêm mới</a>
+        </div>
         <table id="data-table" class="table table-hover dt-responsive nowrap w-100">
             <thead>
             <tr>
@@ -33,10 +34,22 @@
     <script type="module">
         $(document).ready(function () {
             let table = $('#data-table').DataTable({
-                dom: 'ftp',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('exports.api') }}',
+                search: {
+                    boundary: true
+                },
+                layout: {
+                    topStart: {
+                        search: {
+                            placeholder: 'Tìm kiếm',
+                            text: ''
+                        }
+                    },
+                    topEnd: null,
+                    bottomStart: null
+                },
                 "columnDefs": [{
                     "targets": 1,
                     "data": "name",

@@ -68,7 +68,7 @@ Route::group([
     'as' => 'receipts.',
     'prefix' => 'receipts',
     'controller' => ReceiptController::class,
-    'middleware' => 'auth',
+    'middleware' => ['auth', 'importer'],
 ], function () {
     Route::get('/', 'index')->name('index');
     Route::get('/api', 'api')->name('api');
@@ -95,7 +95,7 @@ Route::group([
     'as' => 'exports.',
     'prefix' => 'exports',
     'controller' => ExportController::class,
-    'middleware' => 'auth',
+    'middleware' => ['auth', 'exporter'],
 ], function () {
     Route::get('/', 'index')->name('index');
     Route::get('/api', 'api')->name('api');

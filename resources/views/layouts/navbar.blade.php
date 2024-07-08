@@ -1,6 +1,11 @@
 @php use App\Enums\AdminType;use App\Enums\NotiType;use App\Enums\UserRoleEnum; @endphp
-<div class="navbar-custom">
-    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+<div class="navbar-custom d-flex justify-between">
+    <div class="ms-10 d-flex justify-between flex-1">
+        <div class="text-3xl text-red-500 d-flex items-center">INNOVATION</div>
+        <div class="text-3xl text-green-500 d-flex items-center">INTELLIGENT</div>
+        <div class="text-3xl text-yellow-500 d-flex items-center">INFORMATION</div>
+    </div>
+    <ul class="list-unstyled topbar-right-menu float-right mb-0 ms-10">
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#"
                role="button" aria-haspopup="false" aria-expanded="false">

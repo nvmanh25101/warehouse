@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Facades\Vite; @endphp
-<div class="left-side-menu bg-white dark:bg-slate-800">
+<div class="left-side-menu mm-show bg-white dark:bg-slate-800 mt-2">
 
     <!-- LOGO -->
     <a href="{{ route('dashboard') }}" class="logo text-center logo-light h-20">
@@ -14,7 +14,7 @@
 
             <li class="side-nav-item">
                 <a href="{{ route('dashboard') }}" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="mdi mdi-home"></i>
                     <span>Dashboards</span>
                 </a>
             </li>

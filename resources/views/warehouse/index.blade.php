@@ -40,7 +40,19 @@
     <script type="module">
         $(document).ready(function () {
             let table = $('#data-table').DataTable({
-                dom: 'ftp',
+                search: {
+                    boundary: true
+                },
+                layout: {
+                    topStart: {
+                        search: {
+                            placeholder: 'Tìm kiếm',
+                            text: ''
+                        }
+                    },
+                    topEnd: null,
+                    bottomStart: null
+                },
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('warehouses.api') }}',

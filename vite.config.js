@@ -6,14 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/css/app-creative.min.css',
-                'resources/css/icons.min.css',
-                'resources/js/jquery-3.7.1.min.js',
-                'resources/js/sweetalert2@11.js',
                 'resources/js/app.js',
-                'resources/js/vendor.min.js',
-                'resources/js/app.min.js',
-                'resources/css/notify.min.css',
             ],
             refresh: true,
             detectTls: 'warehouse.test',

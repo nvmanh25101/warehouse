@@ -34,7 +34,19 @@
     <script type="module">
         $(document).ready(function () {
             let table = new DataTable('#data-table', {
-                dom: 'ftp',
+                search: {
+                    boundary: true
+                },
+                layout: {
+                    topStart: {
+                        search: {
+                            placeholder: 'Tìm kiếm',
+                            text: ''
+                        }
+                    },
+                    topEnd: null,
+                    bottomStart: null
+                },
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('suppliers.api') }}',

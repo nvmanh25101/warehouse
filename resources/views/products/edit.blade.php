@@ -10,86 +10,88 @@
               novalidate>
             @csrf
             @method('PUT')
-            <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Tên sản phẩm</label>
-                <div class="col-9">
-                    <input type="text" class="form-control" name="name"
-                           value="{{ $product->name }}" required>
+            <div>
+                <div class="form-group row mb-3">
+                    <label class="col-3 col-form-label">Tên sản phẩm</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" name="name"
+                               value="{{ $product->name }}" required>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Ghi chú</label>
-                <div class="col-9">
+                <div class="form-group row mb-3">
+                    <label class="col-3 col-form-label">Ghi chú</label>
+                    <div class="col-9">
                     <textarea class="form-control" id="example-textarea" name="note"
                               rows="5">{{ $product->note }}</textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label class="col-3 col-form-label">Nhà cung cấp</label>
-                <div class="col-9">
-                    <select class="form-control" name="supplier_id">
-                        @foreach($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}"
-                                    @if($product->supplier_id === $supplier->id)
-                                        selected
-                                @endif
-                            >
-                                {{ $supplier->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                <div class="form-group row mb-3">
+                    <label class="col-3 col-form-label">Nhà cung cấp</label>
+                    <div class="col-9">
+                        <select class="form-control" name="supplier_id">
+                            @foreach($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}"
+                                        @if($product->supplier_id === $supplier->id)
+                                            selected
+                                    @endif
+                                >
+                                    {{ $supplier->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-3">
+                    <label for="quantity" class="col-3 col-form-label">Số lượng</label>
+                    <div class="col-9">
+                        <input type="number" name="quantity" id="quantity" class="form-control" min="1"
+                               value="{{ $product->quantity }}"/>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label for="unit" class="col-3 col-form-label">Đơn vị</label>
+                    <div class="col-9">
+                        <input type="text" name="unit" id="unit" class="form-control"
+                               value="{{ $product->unit }}"/>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group row mb-3">
-                <label for="quantity" class="col-3 col-form-label">Số lượng</label>
-                <div class="col-9">
-                    <input type="number" name="quantity" id="quantity" class="form-control" min="1"
-                           value="{{ $product->quantity }}"/>
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Ảnh</label>
+                    <input type="file" class="form-control-file" name="image" id="image" accept="image/*"/>
+                    <div class="holder">
+                        <img id="imgPreview" src="{{ asset('/' . $product->image) }}" alt="pic"/>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row mb-3">
-                <label for="unit" class="col-3 col-form-label">Đơn vị</label>
-                <div class="col-9">
-                    <input type="text" name="unit" id="unit" class="form-control"
-                           value="{{ $product->unit }}"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Ảnh</label>
-                <input type="file" class="form-control-file" name="image" id="image" accept="image/*"/>
-                <div class="holder">
-                    <img id="imgPreview" src="{{ asset('/' . $product->image) }}" alt="pic"/>
-                </div>
-            </div>
-
             <button class="btn btn-primary mb-3" type="submit">Cập nhật</button>
         </form>
-    </div>
-@endsection
-@push('js')
-    <script type="module">
-        $(document).ready(function () {
-            let image = $("#image");
-            let imgPreview = $("#imgPreview");
+        @endsection
+        @push('js')
+            <script type="module">
+                $(document).ready(function () {
+                    let image = $("#image");
+                    let imgPreview = $("#imgPreview");
 
-            if (imgPreview.attr("src") !== "") {
-                $(".holder").show();
-            }
-            let imgURL;
-            image.change(function (e) {
-                $(".holder").show();
-                imgURL = URL.createObjectURL(e.target.files[0]);
-                imgPreview.attr("src", imgURL);
-            });
+                    if (imgPreview.attr("src") !== "") {
+                        $(".holder").show();
+                    }
+                    let imgURL;
+                    image.change(function (e) {
+                        $(".holder").show();
+                        imgURL = URL.createObjectURL(e.target.files[0]);
+                        imgPreview.attr("src", imgURL);
+                    });
 
-            @if(session('success'))
-            $.notify('{{ session('success') }}', "success");
-            @endif
-            @if(session('error'))
-            $.notify('{{ session('error') }}', "error");
-            @endif
-        })
-    </script>
-@endpush
+                    @if(session('success'))
+                    $.notify('{{ session('success') }}', "success");
+                    @endif
+                    @if(session('error'))
+                    $.notify('{{ session('error') }}', "error");
+                    @endif
+                })
+            </script>
+    @endpush
