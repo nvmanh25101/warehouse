@@ -30,12 +30,17 @@ class CustomerController extends Controller
     public function api()
     {
         return DataTables::of(Customer::query()->where('type', '=', CustomerTypeEnum::KHACH_HANG))
+            ->editColumn('name', function ($object) {
+                $link = route('customers.edit', $object);
+                return "<a href='$link'>$object->name</a>";
+            })
             ->addColumn('edit', function ($object) {
                 return route('customers.edit', $object);
             })
             ->addColumn('destroy', function ($object) {
                 return route('customers.destroy', $object);
             })
+            ->rawColumns(['name'])
             ->make(true);
     }
 

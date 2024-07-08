@@ -49,15 +49,16 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('products.api') }}',
-                "columnDefs": [{
-                    "targets": 1,
-                    "data": "name",
-                    "render": function (data, type, row, meta) {
-                        return type === 'display' && data.length > 40 ?
-                            '<span title="' + data + '">' + data.substr(0, 38) + '...</span>' :
-                            data;
-                    }
-                }],
+                // "columnDefs": [{
+                //     "targets": 1,
+                //     "data": "name",
+                //     "render": function (data, type, row, meta) {
+                //         return data;
+                //         // return type === 'display' && data.length > 40 ?
+                //         //     '<span title="' + data + '">' + data.substr(0, 38) + '...</span>' :
+                //         //     data;
+                //     }
+                // }],
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},

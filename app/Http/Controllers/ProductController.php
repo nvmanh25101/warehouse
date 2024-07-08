@@ -31,13 +31,18 @@ class ProductController extends Controller
     public function api()
     {
         return DataTables::of(Product::query())
+            ->editColumn('name', function ($object) {
+                $link = route('products.edit', $object);
+                return "<a href='$link'>$object->name</a>";
+            })
             ->addColumn('edit', function ($object) {
                 return route('products.edit', $object);
             })
             ->addColumn('destroy', function ($object) {
                 return route('products.destroy', $object);
             })
-            ->make(true);
+            ->rawColumns(['name'])
+            ->make();
     }
 
     public function edit($productId)

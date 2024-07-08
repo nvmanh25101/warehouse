@@ -56,15 +56,15 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('warehouses.api') }}',
-                "columnDefs": [{
-                    "targets": 1,
-                    "data": "name",
-                    "render": function (data, type, row, meta) {
-                        return type === 'display' && data.length > 40 ?
-                            '<span title="' + data + '">' + data.substr(0, 38) + '...</span>' :
-                            data;
-                    }
-                }],
+                // "columnDefs": [{
+                //     "targets": 1,
+                //     "data": "name",
+                //     "render": function (data, type, row, meta) {
+                //         return type === 'display' && data.length > 40 ?
+                //             '<span title="' + data + '">' + data.substr(0, 38) + '...</span>' :
+                //             data;
+                //     }
+                // }],
                 columns: [
                     {data: 'product_id', name: 'product_id'},
                     {data: 'name', name: 'name'},

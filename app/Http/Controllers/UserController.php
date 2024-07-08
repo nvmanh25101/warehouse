@@ -31,6 +31,10 @@ class UserController extends Controller
     public function api()
     {
         return DataTables::of(User::query()->where('id', '!=', auth()->id()))
+            ->editColumn('name', function ($object) {
+                $link = route('users.edit', $object);
+                return "<a href='$link'>$object->name</a>";
+            })
             ->addColumn('role_name', function ($object) {
                 return $object->role_name;
             })
@@ -40,6 +44,7 @@ class UserController extends Controller
             ->addColumn('destroy', function ($object) {
                 return route('users.destroy', $object);
             })
+            ->rawColumns(['name'])
             ->make(true);
     }
 

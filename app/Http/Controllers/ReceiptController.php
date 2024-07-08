@@ -30,12 +30,17 @@ class ReceiptController extends Controller
     public function api()
     {
         return DataTables::of(Receipt::query())
+            ->editColumn('name', function ($object) {
+                $link = route('receipts.edit', $object);
+                return "<a href='$link'>$object->name</a>";
+            })
             ->addColumn('user_name', function ($object) {
                 return $object->user_name;
             })
             ->addColumn('edit', function ($object) {
                 return route('receipts.edit', $object);
             })
+            ->rawColumns(['name'])
             ->make(true);
     }
 

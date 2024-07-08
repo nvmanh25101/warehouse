@@ -33,6 +33,10 @@ class ExportController extends Controller
     public function api()
     {
         return DataTables::of(Export::query())
+            ->editColumn('name', function ($object) {
+                $link = route('exports.edit', $object);
+                return "<a href='$link'>$object->name</a>";
+            })
             ->addColumn('user_name', function ($object) {
                 return $object->user_name;
             })
@@ -45,6 +49,7 @@ class ExportController extends Controller
             ->addColumn('destroy', function ($object) {
                 return route('exports.destroy', $object);
             })
+            ->rawColumns(['name'])
             ->make(true);
     }
 
@@ -127,7 +132,7 @@ class ExportController extends Controller
     public function destroy(Export $export)
     {
         $export->delete();
-        
+
         return response()->json([
             'success' => 'Xóa thành công',
         ]);

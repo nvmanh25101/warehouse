@@ -36,8 +36,10 @@ class WarehouseController extends Controller
     public function api()
     {
         return DataTables::of(Warehouse::query()->with(['product', 'exports']))
-            ->addColumn('name', function ($object) {
-                return $object->product()->withTrashed()->first()->name;
+            ->editColumn('name', function ($object) {
+                $link = route('warehouses.edit', $object);
+                $name = $object->product()->withTrashed()->first()->name;
+                return "<a href='$link'>$name</a>";
             })
             ->addColumn('warning', function ($object) {
                 return $object->warning;
@@ -52,6 +54,7 @@ class WarehouseController extends Controller
                     $query->whereColumn('quantity', '>', 'threshold');
                 }
             })
+            ->rawColumns(['name'])
             ->make(true);
     }
 

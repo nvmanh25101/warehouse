@@ -30,12 +30,17 @@ class SupplierController extends Controller
     public function api()
     {
         return DataTables::of(Customer::query()->where('type', '=', CustomerTypeEnum::NHA_CUNG_CAP))
+            ->editColumn('name', function ($object) {
+                $link = route('suppliers.edit', $object);
+                return "<a href='$link'>$object->name</a>";
+            })
             ->addColumn('edit', function ($object) {
                 return route('suppliers.edit', $object);
             })
             ->addColumn('destroy', function ($object) {
                 return route('suppliers.destroy', $object);
             })
+            ->rawColumns(['name'])
             ->make(true);
     }
 
