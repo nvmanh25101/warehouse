@@ -49,6 +49,11 @@
                                value="{{ old('unit') }}"/>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ route('products.index') }}" class="btn btn-danger mb-3 me-4 btn-action">Hủy</a>
+                    <button class="btn btn-primary mb-3 ms-4 btn-action" type="submit">Thêm</button>
+                </div>
+
             </div>
             <div class="col-6">
                 <div class="form-group">
@@ -68,8 +73,6 @@
                     </div>
                 </div>
             </div>
-
-            <button class="btn btn-primary mb-3" type="submit">Thêm</button>
         </form>
     </div>
 @endsection

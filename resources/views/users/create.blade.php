@@ -65,7 +65,10 @@
                     </select>
                 </div>
             </div>
-            <button class="btn btn-primary mb-3" type="submit">Thêm</button>
+            <div class="d-flex justify-content-center">
+                <a href="{{ route('users.index') }}" class="btn btn-danger mb-3 me-4 btn-action">Hủy</a>
+                <button class="btn btn-primary mb-3 ms-4 btn-action" type="submit">Thêm</button>
+            </div>
         </form>
     </div>
 @endsection

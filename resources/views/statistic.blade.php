@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('content')
-    <button class="btn btn-primary">
-        <a href="{{ route('warehouses.export') }}">Xuất Excel</a>
-    </button>
     <div class="col-12">
+        <div class="d-flex flex-row-reverse">
+            <a href="{{ route('warehouses.export') }}" class="btn btn-primary">Xuất Excel</a>
+        </div>
         <table id="data-table" class="table table-hover dt-responsive nowrap w-100">
             <thead>
             <tr>

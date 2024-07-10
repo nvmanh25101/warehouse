@@ -4,8 +4,9 @@
 @section('content')
 
     <div class="col-12">
-        <a href="{{ route('customers.create') }}" class="btn btn-outline-primary">Thêm mới</a>
-
+        <div class="d-flex flex-row-reverse">
+            <a href="{{ route('customers.create') }}" class="btn btn-outline-primary">Thêm mới</a>
+        </div>
         <table id="data-table" class="table table-hover dt-responsive nowrap w-100">
             <thead>
             <tr>

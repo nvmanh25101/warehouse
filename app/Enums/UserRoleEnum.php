@@ -9,6 +9,7 @@ final class UserRoleEnum extends Enum
     public const ADMIN = 0;
     public const IMPORTER = 1;
     public const EXPORTER = 2;
+    public const MANAGER = 3;
 
     public static function getKeyByValue($value): bool|int|string
     {
@@ -20,6 +21,7 @@ final class UserRoleEnum extends Enum
         return [
             'Nhân viên nhập hàng' => self::IMPORTER,
             'Nhân viên xuất hàng' => self::EXPORTER,
+            'Quản lý' => self::MANAGER,
         ];
     }
 }

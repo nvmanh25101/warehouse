@@ -2,20 +2,12 @@
 @push('css')
 @endpush
 @section('content')
-    <div class="row mt-4">
-        <div class="col-sm-6">
-            <a href="{{ route('exports.index') }}"
-               class="btn text-muted d-none d-sm-inline-block btn-link font-weight-semibold">
-                <i class="mdi mdi-arrow-left"></i> Hủy </a>
-        </div> <!-- end col -->
-        <div class="col-sm-6">
-            <div class="text-sm-right">
-                <button class="btn" id="submit">
-                    <i class="mdi mdi-cart-plus mr-1"></i> Cập nhật
-                </button>
-            </div>
-        </div> <!-- end col -->
-    </div> <!-- end row-->
+    <div class="col-12 d-flex flex-row-reverse">
+        <button class="btn btn-primary btn-action ms-4" id="submit">Cập nhật</button>
+        <a href="{{ route('exports.index') }}"
+           class="btn btn-danger btn-action me-4"> Hủy </a>
+    </div>
+   
     <div class="col-12">
         <form action="{{ route('exports.update', $export) }}" method="POST" id="form">
             @csrf

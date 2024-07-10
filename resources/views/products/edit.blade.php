@@ -4,13 +4,13 @@
 @endpush
 @section('content')
     <div class="col-12">
-        <form method="post" action="{{ route('products.update', $product) }}" class="needs-validation"
+        <form method="post" action="{{ route('products.update', $product) }}" class="needs-validation row"
               id="form-edit"
               enctype="multipart/form-data"
               novalidate>
             @csrf
             @method('PUT')
-            <div>
+            <div class="col-6">
                 <div class="form-group row mb-3">
                     <label class="col-3 col-form-label">Tên sản phẩm</label>
                     <div class="col-9">
@@ -56,6 +56,10 @@
                                value="{{ $product->unit }}"/>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ route('products.index') }}" class="btn btn-danger mb-3 me-4 btn-action">Hủy</a>
+                    <button class="btn btn-primary mb-3 btn-action" type="submit">Cập nhật</button>
+                </div>
             </div>
 
             <div class="col-6">
@@ -67,31 +71,31 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary mb-3" type="submit">Cập nhật</button>
         </form>
-        @endsection
-        @push('js')
-            <script type="module">
-                $(document).ready(function () {
-                    let image = $("#image");
-                    let imgPreview = $("#imgPreview");
+    </div>
+@endsection
+@push('js')
+    <script type="module">
+        $(document).ready(function () {
+            let image = $("#image");
+            let imgPreview = $("#imgPreview");
 
-                    if (imgPreview.attr("src") !== "") {
-                        $(".holder").show();
-                    }
-                    let imgURL;
-                    image.change(function (e) {
-                        $(".holder").show();
-                        imgURL = URL.createObjectURL(e.target.files[0]);
-                        imgPreview.attr("src", imgURL);
-                    });
+            if (imgPreview.attr("src") !== "") {
+                $(".holder").show();
+            }
+            let imgURL;
+            image.change(function (e) {
+                $(".holder").show();
+                imgURL = URL.createObjectURL(e.target.files[0]);
+                imgPreview.attr("src", imgURL);
+            });
 
-                    @if(session('success'))
-                    $.notify('{{ session('success') }}', "success");
-                    @endif
-                    @if(session('error'))
-                    $.notify('{{ session('error') }}', "error");
-                    @endif
-                })
-            </script>
-    @endpush
+            @if(session('success'))
+            $.notify('{{ session('success') }}', "success");
+            @endif
+            @if(session('error'))
+            $.notify('{{ session('error') }}', "error");
+            @endif
+        })
+    </script>
+@endpush

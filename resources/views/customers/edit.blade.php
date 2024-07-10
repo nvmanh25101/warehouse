@@ -58,7 +58,10 @@
                               rows="5">{{ $customer->note }}</textarea>
                 </div>
             </div>
-            <button class="btn btn-primary mb-3" type="submit">Cập nhật</button>
+            <div class="d-flex justify-content-center">
+                <a href="{{ route('customers.index') }}" class="btn btn-danger mb-3 me-4 btn-action">Hủy</a>
+                <button class="btn btn-primary mb-3 btn-action" type="submit">Cập nhật</button>
+            </div>
         </form>
     </div>
 @endsection
