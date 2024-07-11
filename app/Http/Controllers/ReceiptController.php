@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Receipt\StoreRequest;
+use App\Http\Requests\Receipt\UpdateRequest;
 use App\Models\Product;
 use App\Models\Receipt;
 use App\Models\Warehouse;
@@ -126,7 +127,7 @@ class ReceiptController extends Controller
         ]);
     }
 
-    public function update(StoreRequest $request, Receipt $receipt)
+    public function update(UpdateRequest $request, Receipt $receipt)
     {
         $request = $request->validated();
         $receipt->fill($request);
